@@ -29,7 +29,7 @@ class HeroHeaderUIView: UIView {
         button.setTitle("Download", for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
         button.setTitleColor(UIColor.white, for: .normal)
-        button.tintColor = UIColor.white
+        button.tintColor = UIColor.systemGray
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class HeroHeaderUIView: UIView {
         button.setTitle("Play", for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
         button.setTitleColor(UIColor.white, for: .normal)
-        button.tintColor = UIColor.white
+        button.tintColor = UIColor.systemGray
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
         button.translatesAutoresizingMaskIntoConstraints = false

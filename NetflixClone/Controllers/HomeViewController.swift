@@ -9,6 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    let sectionTitle: [String] = ["Trending Movies", "Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
+    
     // anonymous closur pattern
     // table view
     private let homeFeedTable: UITableView = {
@@ -27,6 +29,20 @@ class HomeViewController: UIViewController {
         
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
+        
+        
+        configureNavBar()
+        
+        // Setup the header view
+        let heederView = HeroHeaderUIView(frame: CGRect(x: 0,
+                                                        y: 0,
+                                                        width: view.bounds.width,
+                                                        height: view.bounds.height/2))
+        homeFeedTable.tableHeaderView = heederView
+        
+        getTrendingMovies()
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,20 +50,43 @@ class HomeViewController: UIViewController {
         // layouts the table view to the screen bounds
         homeFeedTable.frame = view.bounds
         
-//        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height/2))
-        // Setup the header view
-        let heederView = HeroHeaderUIView(frame: CGRect(x: 0,
-                                                        y: 0,
-                                                        width: view.bounds.width,
-                                                        height: view.bounds.height/2))
-        homeFeedTable.tableHeaderView = heederView
+//        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width,                    height:view.bounds.height/2))
+    }
+    
+    // MARK: - Private methodd
+    // Navigation buttons
+    private func configureNavBar() {
+        var image = UIImage(named: "logo")
+        // renders the ios system to use image as it is
+        image = image?.withRenderingMode(.alwaysOriginal)
+        
+        // left Bar ButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
+                                                           style: .done,
+                                                           target: self,
+                                                           action: nil)
+        // right Bar ButtonItem
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.circle"), style: .done, target: self, action: nil)
+        ]
+        
+        // change navigation bar tint
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
+    private func getTrendingMovies() {
+        APICaller.shared.getTrendingMovies { _ in
+            
+        }
     }
 }
 
+// MARK: - Extension
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    // Return sections
+    // return sections
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 20
+        return sectionTitle.count
     }
     
     // return number of rows inside section 
@@ -64,11 +103,35 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    // row height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 200
     }
-    
+    // header height
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+    
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
+        header.textLabel?.text = header.textLabel?.text?.capitalized
+//        header.textLabel?.textColor = .systemBackground
+    }
+    
+    // return the title in each section
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitle[section]
+    }
+    
+    // tells the delegate when the user scrolls
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // offset of the top inset of the screen
+        let defaultOffSet = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultOffSet
+        // when the user scrolls the naviagtion bar moves up
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
 }
