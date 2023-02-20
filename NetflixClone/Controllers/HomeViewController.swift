@@ -34,7 +34,13 @@ class HomeViewController: UIViewController {
         // layouts the table view to the screen bounds
         homeFeedTable.frame = view.bounds
         
-        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height/2))
+//        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height/2))
+        // Setup the header view
+        let heederView = HeroHeaderUIView(frame: CGRect(x: 0,
+                                                        y: 0,
+                                                        width: view.bounds.width,
+                                                        height: view.bounds.height/2))
+        homeFeedTable.tableHeaderView = heederView
     }
 }
 

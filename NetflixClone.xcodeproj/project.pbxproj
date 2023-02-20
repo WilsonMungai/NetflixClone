@@ -17,6 +17,7 @@
 		C8D2740D29A1996E006F7C8B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2740C29A1996E006F7C8B /* SearchViewController.swift */; };
 		C8D2740F29A1998D006F7C8B /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D2740E29A1998D006F7C8B /* DownloadsViewController.swift */; };
 		C8F633E629A3C6B100549324 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F633E529A3C6B100549324 /* CollectionViewTableViewCell.swift */; };
+		C8F633E829A3CDFD00549324 /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F633E729A3CDFD00549324 /* HeroHeaderUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C8D2740C29A1996E006F7C8B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C8D2740E29A1998D006F7C8B /* DownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		C8F633E529A3C6B100549324 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
+		C8F633E729A3CDFD00549324 /* HeroHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C8F633E529A3C6B100549324 /* CollectionViewTableViewCell.swift */,
+				C8F633E729A3CDFD00549324 /* HeroHeaderUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				C8D2740D29A1996E006F7C8B /* SearchViewController.swift in Sources */,
 				C8D273F829A195CA006F7C8B /* MainTabBarViewController.swift in Sources */,
 				C8F633E629A3C6B100549324 /* CollectionViewTableViewCell.swift in Sources */,
+				C8F633E829A3CDFD00549324 /* HeroHeaderUIView.swift in Sources */,
 				C8D2740F29A1998D006F7C8B /* DownloadsViewController.swift in Sources */,
 				C8D273F429A195CA006F7C8B /* AppDelegate.swift in Sources */,
 				C8D273F629A195CA006F7C8B /* SceneDelegate.swift in Sources */,
