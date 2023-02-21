@@ -1,5 +1,5 @@
 //
-//  Tv.swift
+//  Movie.swift
 //  NetflixClone
 //
 //  Created by Wilson Mungai on 2023-02-20.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TrendingTvResponse: Codable {
-    let results: [Tv]
+struct TrendingTitleResponse: Codable {
+    let results: [Title]
 }
 
-struct Tv: Codable {
+struct Title: Codable {
     let id: Int
     let media_type: String?
     let original_name: String?
@@ -22,11 +22,9 @@ struct Tv: Codable {
     let release_date: String?
     let vote_average: Double
 }
-//    let origin_country: String?
-//    let original_language: String?
-//    let popularity: Double?
 
 /*
+ 
  adult = 0;
  "backdrop_path" = "/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg";
  "first_air_date" = "2023-01-15";
@@ -46,5 +44,7 @@ struct Tv: Codable {
  popularity = "5859.799";
  "poster_path" = "/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg";
  "vote_average" = "8.831";
- "vote_count" = 1892;
+ "vote_count" = 1888;
+ 
  */
+

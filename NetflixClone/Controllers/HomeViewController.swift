@@ -7,6 +7,15 @@
 
 import UIKit
 
+// handles the different cases
+enum Sections: Int {
+    case TrendingMovies = 0
+    case TrendingTv = 1
+    case Popular = 2
+    case Upcoming = 3
+    case TopRated = 4
+}
+
 class HomeViewController: UIViewController {
     
     let sectionTitle: [String] = ["Trending Movies", "Trending Tv",  "Popular", "Upcoming Movies", "Top Rated"]
@@ -40,9 +49,7 @@ class HomeViewController: UIViewController {
                                                         height: view.bounds.height/2))
         homeFeedTable.tableHeaderView = heederView
         
-        fetchData()
-        
-        
+//        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -75,7 +82,7 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
     }
     
-    private func fetchData() {
+//    private func fetchData() {
 //        APICaller.shared.getTrendingMovies { results in
 //            switch results {
 //            case .success(let movies):
@@ -111,16 +118,16 @@ class HomeViewController: UIViewController {
 //            }
 //        }
         
-        APICaller.shared.getTopRatedMovies { results in
+//        APICaller.shared.getTopRatedMovies { results in
 //            switch results {
 //            case .success(let movies):
 //                print(movies)
 //            case .failure(let error):
 //                print(error)
 //            }
-        }
+//        }
 
-    }
+//    }
 }
 
 // MARK: - Extension
@@ -141,6 +148,60 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        // switch on the indexpath to get the selected item
+        switch indexPath.section {
+        case Sections.TrendingMovies.rawValue:
+            // API Caller to get trending movies
+            APICaller.shared.getTrendingTv { result in
+                switch result{
+                case .success(let titles):
+                    cell.configre(with: titles)
+                case.failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            // API Caller to get trending tv
+        case Sections.TrendingTv.rawValue:
+            APICaller.shared.getTrendingTv { result in
+                switch result {
+                case .success(let titles):
+                    cell.configre(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            // API Caller to get popular movies
+        case Sections.Popular.rawValue:
+            APICaller.shared.getPopularMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configre(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            // API Caller to get upcoming movies
+        case Sections.Upcoming.rawValue:
+            APICaller.shared.getUpcomingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configre(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            // API Caller to get top rated movies
+        case Sections.TopRated.rawValue:
+            APICaller.shared.getTopRatedMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configre(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        default: return UITableViewCell()
+        }
         return cell
     }
     
@@ -153,7 +214,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return 40
     }
     
-    
+    // header section
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
