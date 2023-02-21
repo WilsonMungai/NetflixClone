@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let sectionTitle: [String] = ["Trending Movies", "Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
+    let sectionTitle: [String] = ["Trending Movies", "Trending Tv",  "Popular", "Upcoming Movies", "Top Rated"]
     
     // anonymous closur pattern
     // table view
@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
                                                         height: view.bounds.height/2))
         homeFeedTable.tableHeaderView = heederView
         
-        getTrendingMovies()
+        fetchData()
         
         
     }
@@ -75,10 +75,51 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
     }
     
-    private func getTrendingMovies() {
-        APICaller.shared.getTrendingMovies { _ in
-            
+    private func fetchData() {
+//        APICaller.shared.getTrendingMovies { results in
+//            switch results {
+//            case .success(let movies):
+//                print(movies)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//        APICaller.shared.getTrendingTv { results in
+//            switch results {
+//            case .success(let movies):
+//                print(movies)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
+//        APICaller.shared.getUpcomingMovies { results in
+//            switch results {
+//            case .success(let movies):
+//                print(movies)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
+//        APICaller.shared.getPopularMovies { results in
+//            switch results {
+//            case .success(let movies):
+//                print(movies)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
+        APICaller.shared.getTopRatedMovies { results in
+//            switch results {
+//            case .success(let movies):
+//                print(movies)
+//            case .failure(let error):
+//                print(error)
+//            }
         }
+
     }
 }
 
@@ -117,7 +158,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
-        header.textLabel?.text = header.textLabel?.text?.capitalized
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter() // capitalized 
 //        header.textLabel?.textColor = .systemBackground
     }
     
