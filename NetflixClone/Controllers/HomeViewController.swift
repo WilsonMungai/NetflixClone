@@ -186,7 +186,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 switch result {
                 case .success(let titles):
                     cell.configre(with: titles)
-                    print(titles)
+//                    print(titles)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }

@@ -62,6 +62,7 @@ class APICaller {
         task.resume()
     }
     
+    // Get upcoming movies method
     func getUpcomingMovies(completion: @escaping (Result<[Title], Error>)-> Void) {
         guard let url = URL(string: "\(constants.baseUrl)/3/movie/upcoming?api_key=\(constants.APIKey)&language=en-US&page=1") else { return }
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
@@ -79,6 +80,7 @@ class APICaller {
         task.resume()
     }
     
+    // Get popular movies method
     func getPopularMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
         guard let url = URL(string: "\(constants.baseUrl)/3/movie/popular?api_key=\(constants.APIKey)&language=en-US&page=1") else {return}
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
@@ -94,6 +96,7 @@ class APICaller {
         task.resume()
     }
     
+    // Get top rated movies method
     func getTopRatedMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
         guard let url = URL(string: "\(constants.baseUrl)/3/movie/top_rated?api_key=\(constants.APIKey)&language=en-US&page=1") else {
             return
@@ -110,7 +113,25 @@ class APICaller {
         }
         task.resume()
     }
+    
+    // discover movies method
+    func getDiscoverMovies(completion: @escaping (Result<[Title], Error>)-> Void)  {
+        guard let url = URL(string: "\(constants.baseUrl)/3/discover/movie?api_key=\(constants.APIKey)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate") else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, _ , error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
+                completion(.success(result.results))
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+        task.resume()
+    }
 }
 
+//https://api.themoviedb.org/3/discover/movie?api_key=<<api_key>>&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate
 
 //https://api.themoviedb.org/3/movie/top_rated?api_key=<<api_key>>&language=en-US&page=1
