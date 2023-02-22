@@ -15,7 +15,8 @@ class UpcomingViewController: UIViewController {
     // table view
     private let upComingTable: UITableView = {
         let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
     }()
 
@@ -62,15 +63,23 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     // data source functio
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = upComing.count
-        print("Epiosdes are: \(count)")
+//        print("Epiosdes are: \(count)")
         return count
     }
 
     // delegate function
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        guard let title = titles[indexPath.row].original_name else { return UITableViewCell() }
-        cell.textLabel?.text = upComing[indexPath.row].original_title ?? upComing[indexPath.row].title ?? "Unkown"
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else { return UITableViewCell() }
+//        cell.textLabel?.text = upComing[indexPath.row].original_title ?? upComing[indexPath.row].title ?? "Unkown"
+        let upComingTitles = upComing[indexPath.row].original_title ?? upComing[indexPath.row].title ?? "Unkown"
+        // unwrapping image view
+        guard let upComingPoster = upComing[indexPath.row].poster_path else { return UITableViewCell() }
+        cell.configure(with: TitleViewModel(titleName: upComingTitles , posterURL: upComingPoster))
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
 }

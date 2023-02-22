@@ -37,11 +37,13 @@ class TitleCollectionViewCell: UICollectionViewCell {
         posterImageView.frame = contentView.bounds
     }
     
-    // caching image
+    // MARK: - Public func
     public func configure(with model: String) {
 //        guard let url = URL(string: model) else { return }
 //        posterImageView.sd_setImage(with: url, completed: nil)
+        // construct url to fetch images
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model)") else {return}
+        // caching image using sdWeb
         posterImageView.sd_setImage(with: url, completed: nil)
 //        print(model)
     }
