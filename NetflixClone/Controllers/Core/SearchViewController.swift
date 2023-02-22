@@ -19,6 +19,17 @@ class SearchViewController: UIViewController {
         return table
     }()
     
+    // search bar controller
+    private let searchController: UISearchController = {
+        // Creates and returns a search controller with the specified view controller for displaying the results.
+        let controller = UISearchController(searchResultsController: SearchResultViewController())
+        // search bar
+        controller.searchBar.placeholder = "Search for Movie or TV Show"
+        // search bar style
+        controller.searchBar.searchBarStyle = .minimal
+        return controller
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +39,11 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         view.addSubview(discoverTable)
+        
+        // integrate the search controller onto our naivagation stack
+        navigationItem.searchController = searchController
+        // bar button item tint color
+        navigationController?.navigationBar.tintColor = .systemGray
         
         discoverTable.delegate = self
         discoverTable.dataSource = self
