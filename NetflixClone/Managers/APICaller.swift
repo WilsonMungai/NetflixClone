@@ -30,11 +30,12 @@ class APICaller {
             // check there is no error
             guard let data = data, error == nil else { return }
             do {
-                //                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-                //                print(result)
+                
+//                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-                //                print(result.results[0].original_name)
+//                print(result)
+//                print(result.results[0].original_name)
             } catch {
                 completion(.failure(APIError.failedToGetData))
                 //                print(error.localizedDescription)
@@ -70,7 +71,7 @@ class APICaller {
 //                                                              options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-//                print(result)
+                print(result)
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }

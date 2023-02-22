@@ -152,7 +152,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
             // API Caller to get trending movies
-            APICaller.shared.getTrendingTv { result in
+            APICaller.shared.getTrendingMovies { result in
                 switch result{
                 case .success(let titles):
                     cell.configre(with: titles)
@@ -186,6 +186,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 switch result {
                 case .success(let titles):
                     cell.configre(with: titles)
+                    print(titles)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
