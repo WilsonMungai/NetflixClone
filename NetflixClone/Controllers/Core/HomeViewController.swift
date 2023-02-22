@@ -79,7 +79,7 @@ class HomeViewController: UIViewController {
         ]
         
         // change navigation bar tint
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .systemGray
     }
     
 //    private func fetchData() {
