@@ -130,7 +130,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 // search conformance
-extension SearchViewController: UISearchResultsUpdating {
+extension SearchViewController: UISearchResultsUpdating, SearchResultViewControllerDelegate {
+
+    
     // update search results
     func updateSearchResults(for searchController: UISearchController) {
         // get query from search bar
@@ -141,7 +143,11 @@ extension SearchViewController: UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               // call the server when there are at least 3 words in search bar
               query.trimmingCharacters(in: .whitespaces).count >= 3,
+              // show search controller
               let resultController = searchController.searchResultsController as? SearchResultViewController else { return }
+        
+        resultController.delegate = self
+        
         // call api
         APICaller.shared.search(with: query) { result in
             // perform in the main thread
@@ -154,6 +160,16 @@ extension SearchViewController: UISearchResultsUpdating {
                     print(error.localizedDescription)
                 }
             }
+        }
+    }
+    
+//    SearchResultViewControllerDelegate protocol stub
+    func searchResultViewController(_ viewModel: TitlePreviewViewModel) {
+        // perfom in main
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

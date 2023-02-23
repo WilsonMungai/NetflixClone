@@ -28,7 +28,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         layout.itemSize = CGSize(width: 140, height: 200)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        //        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
         return collectionView
     }()
@@ -61,6 +61,11 @@ class CollectionViewTableViewCell: UITableViewCell {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
         }
+    }
+    
+    // MARK: - Private functions
+    private func downloadTitleAt(indexPath: IndexPath) {
+        print("downloading\(titles[indexPath.row].title)")
     }
 }
 
@@ -114,6 +119,24 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    // asks collection view for menu context for the selected item
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil,
+                                                previewProvider: nil) { [weak self] _ in
+            let downloadAction = UIAction(title: "Download",
+                                          subtitle: nil,
+                                          image: nil,
+                                          identifier: nil,
+                                          discoverabilityTitle: nil,
+                                          state: .off) { _ in
+//                print("downloading")
+                self?.downloadTitleAt(indexPath: indexPath)
+            }
+            return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [downloadAction])
+        }
+        return config
     }
 }
  

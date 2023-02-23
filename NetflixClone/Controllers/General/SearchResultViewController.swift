@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol searchResultViewControllerDelegate: AnyObject {
+protocol SearchResultViewControllerDelegate: AnyObject {
     func searchResultViewController(_ viewModel: TitlePreviewViewModel)
 }
 
@@ -16,7 +16,7 @@ class SearchResultViewController: UIViewController {
 
     public var titles: [Title] = [Title]()
     
-    public weak var delegate: searchResultViewControllerDelegate?
+    public weak var delegate: SearchResultViewControllerDelegate?
     
     public let searchResultCollectionView: UICollectionView = {
         
