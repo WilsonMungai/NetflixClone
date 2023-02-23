@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol CollectionViewTableViewCellDelegate: AnyObject {
+    func collectionViewTableViewCellDelegate(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel)
+}
+
 class CollectionViewTableViewCell: UITableViewCell {
     
     static let identifier = "CollectionViewTableViewCell"
+    
+    weak var delegate: CollectionViewTableViewCellDelegate?
     
     // Initialze variable that holds the titles
     private var titles: [Title] = [Title]()
@@ -85,14 +91,26 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         collectionView.deselectItem(at: indexPath, animated: true)
         
         guard let title = titles[indexPath.row].title ?? titles[indexPath.row].original_title else { return }
-        let titleName = title
+//        let titleName = title
         
         // appending trailer to the movie title will return the movie's trailer
-        APICaller.shared.getMovie(with: title + " trailer") { result in
+        APICaller.shared.getMovie(with: title + " trailer") { [weak self] result in
             switch result {
             case .success(let video):
+                // unwrap overview
+                let overView = self?.titles[indexPath.row]
+                guard let titleOverview = overView?.overview else {
+                    return
+                }
+                
+                let viewModel = TitlePreviewViewModel(title: title,
+                                                      youtubeiew: video,
+                                                      titleOverview: titleOverview)
+                // unwrap the option table view cell
+                guard let strongSelf = self else { return }
+                self?.delegate?.collectionViewTableViewCellDelegate(strongSelf, viewModel: viewModel)
                 // get the movie id
-                print(video.id)
+//                print(video.id)
             case .failure(let error):
                 print(error.localizedDescription)
             }

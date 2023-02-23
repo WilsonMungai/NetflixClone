@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
                                                         height: view.bounds.height/2))
         homeFeedTable.tableHeaderView = heederView
         
-        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
+//        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
 //        fetchData()
     }
     
@@ -149,6 +149,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        cell.delegate = self
+        
         // switch on the indexpath to get the selected item
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
@@ -238,4 +241,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         // when the user scrolls the naviagtion bar moves up
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
+}
+
+
+// extension for the preview controller
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+    func collectionViewTableViewCellDelegate(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel) {
+        
+        DispatchQueue.main.async { [weak self]  in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    
 }

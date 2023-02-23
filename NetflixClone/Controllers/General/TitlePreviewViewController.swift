@@ -65,10 +65,10 @@ class TitlePreviewViewController: UIViewController {
     
     func addConstraints() {
         let webViewConstraints = [
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             webView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
-            webView.heightAnchor.constraint(equalToConstant: 250)
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
+            webView.heightAnchor.constraint(equalToConstant: 300)
         ]
         
         let titleLabelConstraints = [
@@ -79,7 +79,7 @@ class TitlePreviewViewController: UIViewController {
         let overViewLabelConstraints = [
             overViewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overViewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20)
+            overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
 //
         let downloadButtonConstraints = [
@@ -95,4 +95,15 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
+    func configure(with model: TitlePreviewViewModel) {
+        titleLabel.text = model.title
+        overViewLabel.text = model.titleOverview
+        
+        // url string
+        guard let url = URL(string: "https://www.youtube.com/embed/\(model.youtubeiew.id.videoId)") else {
+            return
+        }
+        // load the webview with the url string created
+        webView.load(URLRequest(url: url))
+    }
 }
