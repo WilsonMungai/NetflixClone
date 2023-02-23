@@ -49,6 +49,7 @@ class HomeViewController: UIViewController {
                                                         height: view.bounds.height/2))
         homeFeedTable.tableHeaderView = heederView
         
+        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
 //        fetchData()
     }
     

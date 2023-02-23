@@ -78,5 +78,25 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         cell.configure(with: model)
         return cell
     }
+    
+    // register when cell is tapped
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // deselect the item selected
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let title = titles[indexPath.row].title ?? titles[indexPath.row].original_title else { return }
+        let titleName = title
+        
+        // appending trailer to the movie title will return the movie's trailer
+        APICaller.shared.getMovie(with: title + " trailer") { result in
+            switch result {
+            case .success(let video):
+                // get the movie id
+                print(video.id)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
  
