@@ -64,8 +64,17 @@ class CollectionViewTableViewCell: UITableViewCell {
     }
     
     // MARK: - Private functions
+    // MARK: - Core Data
     private func downloadTitleAt(indexPath: IndexPath) {
-        print("downloading\(titles[indexPath.row].title)")
+//        print("downloading\(titles[indexPath.row].title)")
+        DataPersistenceManager.shared.downloadTitle(with: titles[indexPath.row]) { result in
+            switch result {
+            case .success():
+                print("downloaded to database")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
