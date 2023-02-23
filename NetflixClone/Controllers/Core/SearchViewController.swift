@@ -49,6 +49,9 @@ class SearchViewController: UIViewController {
         discoverTable.dataSource = self
         
         fetchDiscoverMovies()
+        
+        // responsible for updating the search results for the controller
+        searchController.searchResultsUpdater = self
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -93,5 +96,34 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+}
+
+// search conformance
+extension SearchViewController: UISearchResultsUpdating {
+    // update search results
+    func updateSearchResults(for searchController: UISearchController) {
+        // get query from search bar
+        let searchBar = searchController.searchBar
+        // query is the text in the search bar
+        guard let query = searchBar.text,
+              // remove white spaces
+              query.trimmingCharacters(in: .whitespaces).isEmpty,
+              // call the server when there are at least 3 words in search bar
+              query.trimmingCharacters(in: .whitespaces).count >= 3,
+              let resultController = searchController.searchResultsController as? SearchResultViewController else { return }
+        // call api
+        APICaller.shared.search(with: query) { result in
+            // perform in the main thread
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let titles):
+                    resultController.titles = titles
+                    resultController.searchResultCollectionView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }

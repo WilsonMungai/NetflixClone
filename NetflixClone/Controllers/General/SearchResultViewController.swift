@@ -10,8 +10,9 @@ import UIKit
 // Responsible for displaying the search results
 class SearchResultViewController: UIViewController {
 
-    private var titles: [Title] = [Title]()
-    private let searchResultCollectionView: UICollectionView = {
+    public var titles: [Title] = [Title]()
+    
+    public let searchResultCollectionView: UICollectionView = {
         // layout that arranges items in a grid view with optional header and footer for each section
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width/3 - 5, height: 200)
@@ -39,14 +40,20 @@ class SearchResultViewController: UIViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        let count = titles.count
+        print("Search result is \(count)")
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .systemGray
+        
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TitleCollectionViewCell.identifier,
+            for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
+        
+        guard let posterPath = titles[indexPath.row].poster_path else { return UICollectionViewCell() }
+        cell.configure(with: posterPath)
+//        cell.backgroundColor = .systemGray
         return cell
     }
-    
-
 }
