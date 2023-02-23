@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol searchResultViewControllerDelegate: AnyObject {
+    func searchResultViewController(_ viewModel: TitlePreviewViewModel)
+}
+
 // Responsible for displaying the search results
 class SearchResultViewController: UIViewController {
 
     public var titles: [Title] = [Title]()
+    
+    public weak var delegate: searchResultViewControllerDelegate?
     
     public let searchResultCollectionView: UICollectionView = {
         
@@ -60,5 +66,30 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.configure(with: posterPath)
 //        cell.backgroundColor = .systemGray
         return cell
+    }
+    
+    // register item selected
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        // unrwap optionals
+        guard let title = titles[indexPath.row].title ?? titles[indexPath.row].original_title else { return }
+        guard let poster = titles[indexPath.row].poster_path else { return }
+        
+        
+        // API call
+        APICaller.shared.getMovie(with: title) { [weak self] result in
+            switch result {
+                // success when we have a video
+            case .success(let video):
+                // protocol
+                self?.delegate?.searchResultViewController(TitlePreviewViewModel(title: title,
+                                                                           youtubeiew: video,
+                                                                           titleOverview: poster))
+                // failure print error
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
