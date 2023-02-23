@@ -89,9 +89,8 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // deselect the item selected
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+        // unwrap title
         guard let title = titles[indexPath.row].title ?? titles[indexPath.row].original_title else { return }
-//        let titleName = title
         
         // appending trailer to the movie title will return the movie's trailer
         APICaller.shared.getMovie(with: title + " trailer") { [weak self] result in

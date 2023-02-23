@@ -37,11 +37,11 @@ class APICaller {
             guard let data = data, error == nil else { return }
             do {
                 
-//                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                //                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-//                print(result)
-//                print(result.results[0].original_name)
+                //                print(result)
+                //                print(result.results[0].original_name)
             } catch {
                 completion(.failure(APIError.failedToGetData))
                 //                print(error.localizedDescription)
@@ -60,7 +60,7 @@ class APICaller {
                 //                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-//                print(result)
+                //                print(result)
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
@@ -74,11 +74,11 @@ class APICaller {
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
             guard let data = data, error == nil else { return }
             do {
-//                let result = try JSONSerialization.jsonObject(with: data,
-//                                                              options: .fragmentsAllowed)
+                //                let result = try JSONSerialization.jsonObject(with: data,
+                //                                                              options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-//                print(result)
+                //                print(result)
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
@@ -94,7 +94,7 @@ class APICaller {
             do {
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-//                print(result)
+                //                print(result)
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
@@ -112,7 +112,7 @@ class APICaller {
             do {
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-//                print(result)
+                //                print(result)
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
@@ -128,7 +128,7 @@ class APICaller {
             
             do {
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
-                print(result)
+                //                print(result)
                 completion(.success(result.results))
             }
             catch {
@@ -141,9 +141,10 @@ class APICaller {
     // search api caller
     func search(with query: String, completion: @escaping (Result<[Title], Error>) -> Void) {
         // format query to return a new string
-//        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-//        guard let url = URL(string:
-//            "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
+        //        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
+        //        guard let url = URL(string:
+        //            "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
+        // replace white space adding Percent Encoding
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         guard let url = URL(string: "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
         
@@ -152,7 +153,7 @@ class APICaller {
             
             do {
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
-//                print(result)
+                //                print(result)
                 completion(.success(result.results))
             }
             catch {
@@ -162,8 +163,9 @@ class APICaller {
         task.resume()
     }
     
+    // movie preview
     func getMovie(with query: String, completion: @escaping (Result<VideoElement, Error>) -> Void) {
-        // replace white space
+        // replace white space adding Percent Encoding
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         // url string
         guard let url = URL(string: "\(constants.YoutubeBaseUrl)q=\(query)&key=\(constants.YoutubeAPIKey)") else { return }
@@ -171,7 +173,7 @@ class APICaller {
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
             guard let data = data, error == nil else { return }
             do {
-//                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                //                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
                 // access the items but return the firs index which is the best result
                 completion(.success(result.items[0]))

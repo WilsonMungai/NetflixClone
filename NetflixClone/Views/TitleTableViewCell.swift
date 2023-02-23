@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 
+// cell to display moview in table view in coming soon page & top search page
 class TitleTableViewCell: UITableViewCell {
 
     static let identifier = "TitleTableViewCell"

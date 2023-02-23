@@ -18,6 +18,11 @@ enum Sections: Int {
 
 class HomeViewController: UIViewController {
     
+    // header trending movie
+    private var randomTrendingMovie: Title?
+    // hero header view reference
+    private var headerView: HeroHeaderUIView?
+    
     let sectionTitle: [String] = ["Trending Movies", "Trending Tv",  "Popular", "Upcoming Movies", "Top Rated"]
     
     // anonymous closur pattern
@@ -43,11 +48,15 @@ class HomeViewController: UIViewController {
         configureNavBar()
         
         // Setup the header view
-        let heederView = HeroHeaderUIView(frame: CGRect(x: 0,
+        headerView = HeroHeaderUIView(frame: CGRect(x: 0,
                                                         y: 0,
                                                         width: view.bounds.width,
                                                         height: view.bounds.height/2))
-        homeFeedTable.tableHeaderView = heederView
+        // assign the header view
+        homeFeedTable.tableHeaderView = headerView
+        
+        // header view configuration
+        configureHeroHeaderView()
         
 //        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
 //        fetchData()
@@ -81,6 +90,32 @@ class HomeViewController: UIViewController {
         
         // change navigation bar tint
         navigationController?.navigationBar.tintColor = .systemGray
+    }
+    
+    // fetching random video 
+    private func configureHeroHeaderView() {
+        APICaller.shared.getTrendingMovies { [weak self] result in
+            switch result {
+                // success
+            case .success(let titles):
+                // get random video in the result
+                let selectedTitle = titles.randomElement()
+                
+                // assign random view to the model property
+                self?.randomTrendingMovie = selectedTitle
+                
+                // unwrap optionals
+                guard let title = selectedTitle?.title ?? selectedTitle?.original_title else { return }
+                guard let poster = selectedTitle?.poster_path else { return }
+                
+                // configure the header view to the vie model
+                self?.headerView?.configure(model: TitleViewModel(titleName: title, posterURL: poster))
+                
+                // failure
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
 //    private func fetchData() {
@@ -247,13 +282,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // extension for the preview controller
 extension HomeViewController: CollectionViewTableViewCellDelegate {
     func collectionViewTableViewCellDelegate(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel) {
-        
+        // perform in the main thread
         DispatchQueue.main.async { [weak self]  in
             let vc = TitlePreviewViewController()
             vc.configure(with: viewModel)
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
-    
 }

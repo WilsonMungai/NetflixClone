@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class HeroHeaderUIView: UIView {
     
@@ -53,7 +54,7 @@ class HeroHeaderUIView: UIView {
         imageView.contentMode = .scaleAspectFill
         // prevents spilling over
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "photo")
+//        imageView.image = UIImage(named: "photo")
         return imageView
     }()
     
@@ -90,4 +91,9 @@ class HeroHeaderUIView: UIView {
         heroImage.frame = bounds
     }
     
+    // configure hero image with view model
+    public func configure(model: TitleViewModel) {
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {return}
+        heroImage.sd_setImage(with: url, completed: nil)
+    }
 }
