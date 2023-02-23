@@ -82,4 +82,35 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    // selected movie at index
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // deselct row
+        tableView.deselectRow(at: indexPath, animated: true)
+        // unwrap optionals
+        guard let title = upComing[indexPath.row].title ?? upComing[indexPath.row].original_title else { return }
+        guard let overView = upComing[indexPath.row].overview else { return }
+        
+        // API call
+        APICaller.shared.getMovie(with: title) { [weak self] result in
+            switch result {
+                // success when we have a video
+            case .success(let video):
+                
+                // perform in the main thread
+                DispatchQueue.main.async {
+                    // create a reference for the preview controller
+                    let vc = TitlePreviewViewController()
+                    // configure view controller with the view model
+                    vc.configure(with: TitlePreviewViewModel(title: title, youtubeiew: video, titleOverview: overView))
+                    // push vc
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+                // failure print error
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

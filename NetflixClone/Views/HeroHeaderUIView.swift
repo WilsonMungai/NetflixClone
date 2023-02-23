@@ -10,20 +10,6 @@ import SDWebImage
 
 class HeroHeaderUIView: UIView {
     
-    // MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(heroImage)
-        addSubview(playButton)
-        addSubview(downloadButton)
-        addGradient()
-        applyConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
     // MARK: - Private methods
     private let downloadButton: UIButton = {
         let button = UIButton()
@@ -58,6 +44,22 @@ class HeroHeaderUIView: UIView {
         return imageView
     }()
     
+    
+    // MARK: - Initializer
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(heroImage)
+        addSubview(playButton)
+        addSubview(downloadButton)
+//        addGradient()
+        applyConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    // MARK: - Private functions
     private func addGradient() {
         let gradeintLayer = CAGradientLayer()
         // Gradient colors
@@ -70,19 +72,21 @@ class HeroHeaderUIView: UIView {
         layer.addSublayer(gradeintLayer)
     }
     
+    // constraints
     private func applyConstraints() {
         let playButtonConstraints = [
             playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
             playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -90),
             playButton.widthAnchor.constraint(equalToConstant: 100)
         ]
-        NSLayoutConstraint.activate(playButtonConstraints)
         
         let downloadButtonConstraints = [
             downloadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
             downloadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -90),
             downloadButton.widthAnchor.constraint(equalToConstant: 100)
         ]
+        
+        NSLayoutConstraint.activate(playButtonConstraints)
         NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
