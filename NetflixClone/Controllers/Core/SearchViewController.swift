@@ -108,7 +108,7 @@ extension SearchViewController: UISearchResultsUpdating {
         // query is the text in the search bar
         guard let query = searchBar.text,
               // remove white spaces
-              query.trimmingCharacters(in: .whitespaces).isEmpty,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
               // call the server when there are at least 3 words in search bar
               query.trimmingCharacters(in: .whitespaces).count >= 3,
               let resultController = searchController.searchResultsController as? SearchResultViewController else { return }

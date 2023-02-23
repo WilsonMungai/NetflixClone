@@ -28,6 +28,7 @@
 		C8F6341B29A5A8FC00549324 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341A29A5A8FC00549324 /* TitleTableViewCell.swift */; };
 		C8F6341D29A5ACDC00549324 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341C29A5ACDC00549324 /* TitleViewModel.swift */; };
 		C8F6341F29A6B7FE00549324 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341E29A6B7FE00549324 /* SearchResultViewController.swift */; };
+		C8F6342329A6F4B800549324 /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6342229A6F4B800549324 /* Youtube.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		C8F6341A29A5A8FC00549324 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
 		C8F6341C29A5ACDC00549324 /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
 		C8F6341E29A6B7FE00549324 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		C8F6342229A6F4B800549324 /* Youtube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			children = (
 				C8F633EB29A4286200549324 /* Title.swift */,
 				C8F6341829A5350F00549324 /* Upcoming.swift */,
+				C8F6342229A6F4B800549324 /* Youtube.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				C8F633E829A3CDFD00549324 /* HeroHeaderUIView.swift in Sources */,
 				C8D2740F29A1998D006F7C8B /* DownloadsViewController.swift in Sources */,
 				C8D273F429A195CA006F7C8B /* AppDelegate.swift in Sources */,
+				C8F6342329A6F4B800549324 /* Youtube.swift in Sources */,
 				C8F6341929A5350F00549324 /* Upcoming.swift in Sources */,
 				C8F6341B29A5A8FC00549324 /* TitleTableViewCell.swift in Sources */,
 				C8D273F629A195CA006F7C8B /* SceneDelegate.swift in Sources */,

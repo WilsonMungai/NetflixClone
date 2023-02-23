@@ -8,8 +8,14 @@
 import Foundation
 
 struct constants {
+    // tmdb api key
     static let APIKey = "53bb76834e431dda9c6ac64c32ec35a5"
+    // tmdb base url
     static let baseUrl = "https://api.themoviedb.org"
+    // google dev api key
+    static let YoutubeAPIKey = "AIzaSyAeOhT5SAS-H5UZtpjJHqJjiPh47J25fBI"
+    // youtube base url
+    static let YoutubeBaseUrl = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
 enum APIError: Error {
@@ -122,6 +128,7 @@ class APICaller {
             
             do {
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
+                print(result)
                 completion(.success(result.results))
             }
             catch {
@@ -132,11 +139,14 @@ class APICaller {
     }
     
     // search api caller
-    func search(with query: String, completion: @escaping (Result<[Title], Error>)-> Void) {
+    func search(with query: String, completion: @escaping (Result<[Title], Error>) -> Void) {
         // format query to return a new string
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        guard let url = URL(string:
-            "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
+//        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
+//        guard let url = URL(string:
+//            "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
+        guard let url = URL(string: "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
+        
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
             guard let data = data, error == nil else { return }
             
@@ -151,7 +161,32 @@ class APICaller {
         }
         task.resume()
     }
+    
+    func getMovie(with query: String, completion: @escaping (Result<VideoElement, Error>) -> Void) {
+        // replace white space
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
+        // url string
+        guard let url = URL(string: "\(constants.YoutubeBaseUrl)q=\(query)&key=\(constants.YoutubeAPIKey)") else { return }
+        // url session
+        let task = URLSession.shared.dataTask(with: url) { data, _ , error in
+            guard let data = data, error == nil else { return }
+            do {
+//                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                let result = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
+                // access the items but return the firs index which is the best result
+                completion(.success(result.items[0]))
+                print(result)
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+        task.resume()
+    }
 }
+
+
+// https://youtube.googleapis.com/youtube/v3/search?q=Harry%20&key=[YOUR_API_KEY] HTTP/1.1
 
 //https://api.themoviedb.org/3/search/movie?api_key={api_key}&query=Jack+Reacher
 
