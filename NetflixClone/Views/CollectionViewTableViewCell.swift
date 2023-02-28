@@ -71,7 +71,7 @@ class CollectionViewTableViewCell: UITableViewCell {
             switch result {
             case .success():
                 // notify the listeners when the download is complete
-                NotificationCenter.default.post(name: NSNotification.Name("download"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name("downloaded"), object: nil)
                 print("downloaded to database")
             case .failure(let error):
                 print(error.localizedDescription)

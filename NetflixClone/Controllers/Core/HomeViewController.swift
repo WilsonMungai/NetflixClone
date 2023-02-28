@@ -57,23 +57,18 @@ class HomeViewController: UIViewController {
         
         // header view configuration
         configureHeroHeaderView()
-        
-//        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
-//        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // layouts the table view to the screen bounds
         homeFeedTable.frame = view.bounds
-        
-//        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width,                    height:view.bounds.height/2))
     }
     
     // MARK: - Private methodd
     // Navigation buttons
     private func configureNavBar() {
-        var image = UIImage(named: "logo")
+        var image = UIImage(named: "v")
         // renders the ios system to use image as it is
         image = image?.withRenderingMode(.alwaysOriginal)
         
@@ -117,53 +112,6 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
-//    private func fetchData() {
-//        APICaller.shared.getTrendingMovies { results in
-//            switch results {
-//            case .success(let movies):
-//                print(movies)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//        APICaller.shared.getTrendingTv { results in
-//            switch results {
-//            case .success(let movies):
-//                print(movies)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        
-//        APICaller.shared.getUpcomingMovies { results in
-//            switch results {
-//            case .success(let movies):
-//                print(movies)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        
-//        APICaller.shared.getPopularMovies { results in
-//            switch results {
-//            case .success(let movies):
-//                print(movies)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        
-//        APICaller.shared.getTopRatedMovies { results in
-//            switch results {
-//            case .success(let movies):
-//                print(movies)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-
-//    }
 }
 
 // MARK: - Extension

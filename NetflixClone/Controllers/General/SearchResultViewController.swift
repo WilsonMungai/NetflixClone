@@ -28,14 +28,16 @@ class SearchResultViewController: UIViewController {
         
         // collection view
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
         collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(searchResultCollectionView)
+        
         view.backgroundColor = .systemBackground
+        view.addSubview(searchResultCollectionView)
         
         searchResultCollectionView.delegate = self
         searchResultCollectionView.dataSource = self
@@ -50,20 +52,22 @@ class SearchResultViewController: UIViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = titles.count
-//        print("Search result is \(count)")
-        return count
+        return titles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TitleCollectionViewCell.identifier,
-            for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
+//        guard let cell = collectionView.dequeueReusableCell(
+//            withReuseIdentifier: TitleCollectionViewCell.identifier,
+//            for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier,
+                                                            for: indexPath) as? TitleCollectionViewCell else {return UICollectionViewCell()}
         
         // unwrap movie poster
-        guard let posterPath = titles[indexPath.row].poster_path else { return UICollectionViewCell() }
-        cell.configure(with: posterPath)
+//        guard let posterPath = titles[indexPath.row].poster_path else { return UICollectionViewCell() }
+//        cell.configure(with: posterPath)
+        let title = titles[indexPath.row]
+        cell.configure(with: title.poster_path ?? "")
 //        cell.backgroundColor = .systemGray
         return cell
     }
@@ -74,7 +78,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         
         // unrwap optionals
         guard let title = titles[indexPath.row].title ?? titles[indexPath.row].original_title else { return }
-        guard let poster = titles[indexPath.row].poster_path else { return }
+        guard let overView = titles[indexPath.row].overview else { return }
         
         
         // API call
@@ -85,7 +89,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
                 // protocol
                 self?.delegate?.searchResultViewController(TitlePreviewViewModel(title: title,
                                                                            youtubeiew: video,
-                                                                           titleOverview: poster))
+                                                                           titleOverview: overView))
                 // failure print error
             case .failure(let error):
                 print(error.localizedDescription)

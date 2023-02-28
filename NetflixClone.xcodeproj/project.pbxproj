@@ -24,7 +24,6 @@
 		C8F6341229A5176C00549324 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341129A5176C00549324 /* TitleCollectionViewCell.swift */; };
 		C8F6341529A5195400549324 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = C8F6341429A5195400549324 /* SDWebImage */; };
 		C8F6341729A5195400549324 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C8F6341629A5195400549324 /* SDWebImageMapKit */; };
-		C8F6341929A5350F00549324 /* Upcoming.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341829A5350F00549324 /* Upcoming.swift */; };
 		C8F6341B29A5A8FC00549324 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341A29A5A8FC00549324 /* TitleTableViewCell.swift */; };
 		C8F6341D29A5ACDC00549324 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341C29A5ACDC00549324 /* TitleViewModel.swift */; };
 		C8F6341F29A6B7FE00549324 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F6341E29A6B7FE00549324 /* SearchResultViewController.swift */; };
@@ -53,7 +52,6 @@
 		C8F633EB29A4286200549324 /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		C8F633ED29A4393800549324 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		C8F6341129A5176C00549324 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
-		C8F6341829A5350F00549324 /* Upcoming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upcoming.swift; sourceTree = "<group>"; };
 		C8F6341A29A5A8FC00549324 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
 		C8F6341C29A5ACDC00549324 /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
 		C8F6341E29A6B7FE00549324 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +75,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C81CD5D829AE503A00BF1572 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				C8D273F729A195CA006F7C8B /* MainTabBarViewController.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		C8D273E729A195CA006F7C8B = {
 			isa = PBXGroup;
 			children = (
@@ -104,7 +110,6 @@
 				C8D2740729A19907006F7C8B /* Controllers */,
 				C8D273F329A195CA006F7C8B /* AppDelegate.swift */,
 				C8D273F529A195CA006F7C8B /* SceneDelegate.swift */,
-				C8D273F729A195CA006F7C8B /* MainTabBarViewController.swift */,
 				C8D273FC29A195CC006F7C8B /* Assets.xcassets */,
 				C8D273FE29A195CC006F7C8B /* LaunchScreen.storyboard */,
 				C8D2740129A195CC006F7C8B /* Info.plist */,
@@ -116,6 +121,7 @@
 		C8D2740729A19907006F7C8B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C81CD5D829AE503A00BF1572 /* Tab */,
 				C8F6342129A6B84B00549324 /* General */,
 				C8F6342029A6B83C00549324 /* Core */,
 			);
@@ -146,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				C8F633EB29A4286200549324 /* Title.swift */,
-				C8F6341829A5350F00549324 /* Upcoming.swift */,
 				C8F6342229A6F4B800549324 /* Youtube.swift */,
 			);
 			path = Models;
@@ -277,7 +282,6 @@
 				C8D273F429A195CA006F7C8B /* AppDelegate.swift in Sources */,
 				C8F6342529A6FADC00549324 /* TitlePreviewViewController.swift in Sources */,
 				C8F6342329A6F4B800549324 /* Youtube.swift in Sources */,
-				C8F6341929A5350F00549324 /* Upcoming.swift in Sources */,
 				C8F6341B29A5A8FC00549324 /* TitleTableViewCell.swift in Sources */,
 				C8D273F629A195CA006F7C8B /* SceneDelegate.swift in Sources */,
 				C8D2740B29A19940006F7C8B /* UpcomingViewController.swift in Sources */,

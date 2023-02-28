@@ -38,25 +38,12 @@ class TitlePreviewViewController: UIViewController {
         return label
     }()
     
-    // download button
-    let downloadButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Download", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemRed
-        button.layer.cornerRadius = 15
-        button.layer.masksToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.addSubview(webView)
         view.addSubview(titleLabel)
         view.addSubview(overViewLabel)
-        view.addSubview(downloadButton)
         
         view.backgroundColor = .systemBackground
         
@@ -84,18 +71,10 @@ class TitlePreviewViewController: UIViewController {
             overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         
-        let downloadButtonConstraints = [
-            downloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            downloadButton.topAnchor.constraint(equalTo: overViewLabel.bottomAnchor, constant: 20),
-            downloadButton.widthAnchor.constraint(equalToConstant: 150),
-            downloadButton.heightAnchor.constraint(equalToConstant: 50)
-        ]
-        
         // activate constraints
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
-        NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
     // configure with view model

@@ -57,7 +57,6 @@ class APICaller {
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
             guard let data = data, error == nil else { return }
             do {
-                //                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
                 //                print(result)
@@ -74,8 +73,7 @@ class APICaller {
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
             guard let data = data, error == nil else { return }
             do {
-                //                let result = try JSONSerialization.jsonObject(with: data,
-                //                                                              options: .fragmentsAllowed)
+               
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
                 //                print(result)
@@ -141,9 +139,6 @@ class APICaller {
     // search api caller
     func search(with query: String, completion: @escaping (Result<[Title], Error>) -> Void) {
         // format query to return a new string
-        //        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        //        guard let url = URL(string:
-        //            "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
         // replace white space adding Percent Encoding
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         guard let url = URL(string: "\(constants.baseUrl)/3/search/movie?api_key=\(constants.APIKey)&query=\(query)") else { return }
@@ -173,7 +168,6 @@ class APICaller {
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
             guard let data = data, error == nil else { return }
             do {
-                //                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
                 let result = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
                 // access the items but return the firs index which is the best result
                 completion(.success(result.items[0]))
